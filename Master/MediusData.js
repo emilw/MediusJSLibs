@@ -33,9 +33,9 @@
 	return result;
   };
   
-  self.QueryDocument = function(tag, query)
+  self.QueryDocument = function(tag, query, pageSize, pageNumber)
   {
-		var params = {tag: tag, query: query, pageSize: 3, pageNumber: 1};
+		var params = {tag: tag, query: query, pageSize: pageSize, pageNumber: pageNumber};
 		//var params = {tag: tag, contextCompanyId: null};
 		
 		
