@@ -1,4 +1,4 @@
-﻿var MediusGraph = function(){
+﻿var MediusChart = function(){
 var self = this;
 self.previousPoint = null;
 
@@ -96,10 +96,29 @@ self.previousPoint = null;
 	  if(isDate){
 		  self.initDateGraph(placeholder, data, type, serieName);
 	  }
+	  else if(isNaN(data[0][0])){
+		  self.initStringGraph(placeholder, data, type, serieName);
+	  }
 	  else {
-		  self.initNumberGraph(placeholder, data, type, serieName);
+		self.initNumberGraph(placeholder, data, type, serieName);
 	  }
   };
+  
+  self.initStringGraph = function(placeholder, data, type, serieName){
+		var option = self.getDefaultOption(type);
+		option.xaxis = {};
+		option.xaxis.ticks = [];
+		
+		if(type != "pie") {
+			for(var i = 0; i < data.length; i++) {
+					option.xaxis.ticks.push([i, data[i][0]]);
+					data[i][0] = i;
+			}
+		};
+
+		var dataSerie = self.getDefaultDataSerie(data, type, serieName);
+		self.init(placeholder, dataSerie, option);
+  }
   
   self.initNumberGraph = function(placeholder, data, type, serieName)
   {

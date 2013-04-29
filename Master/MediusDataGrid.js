@@ -1,5 +1,5 @@
 var MediusDataGrid = function(){
-		
+
 	var self = this;
 		
 	self.CreateGrid = function(elementName, entityType, query, columns, option){
