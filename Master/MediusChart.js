@@ -1,5 +1,6 @@
 ﻿var MediusChart = function(){
 var self = this;
+self.hello ="";
 self.previousPoint = null;
 
  self.showTooltip = function(x, y, contents) {
