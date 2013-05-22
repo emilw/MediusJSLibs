@@ -83,9 +83,8 @@ self.previousPoint = null;
 	  }
 	  else{
 		  dataSerie = [dataSerie];
+		  self.registerHooverBehaviour(placeholder);
 	  }
-	  
-	  self.registerHooverBehaviour(placeholder);
 	  
 	  option.grid = { hoverable: true, clickable: true };
 	  $.plot($("#"+placeholder), dataSerie, option);

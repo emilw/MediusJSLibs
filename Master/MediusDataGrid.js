@@ -135,7 +135,7 @@ var MediusDataGrid = function(){
 				}
 			}
 			else if(query){
-					filterQuery = " Where ";
+					filterQuery = "where ";
 			}
 			
 			if(query){

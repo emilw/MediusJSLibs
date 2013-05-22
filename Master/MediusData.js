@@ -19,7 +19,7 @@
 			result = data;
 		})
 		.fail(function(e) {
-			alert("Failed to execute query: " + query);
+			alert("Failed to execute query: " + params.hqlQuery);
 			});
 			
 	return result;
@@ -28,7 +28,7 @@
   self.QueryDocumentAgregated = function(query)
   {
 	var params = {hqlQuery: query};
-	var result = self.getDataSynch("CoreGadgetService", "GetAgregatedData", params);
+	var result = self.getDataSynch("PurchaseToPayGadgetDataService", "GetAgregatedData", params);
 			
 	return result;
   };
