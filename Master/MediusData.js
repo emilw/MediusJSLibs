@@ -55,7 +55,7 @@
   self.QueryDocumentAgregated = function(query)
   {
 	var params = {hqlQuery: query};
-	var result = self.getDataSynch("PurchaseToPayGadgetDataService", "GetAgregatedData", params);
+	var result = self.getDataSynch("CoreGadgetService", "GetAgregatedData", params);
 			
 	return result;
   };
