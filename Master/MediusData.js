@@ -71,11 +71,29 @@
 			
 	return result;
   };
-  
-  self.QueryDocumentFlat = function(query, columns)
+  /**
+    * Calls the query service and allows flattening the data e.g. reducing the number of properties to return per object
+    *
+    * @params tag the entity type full name
+    * @params query the query statement to fetch the apropriate data object
+	* @params pageSize the size of the data pages to fetch
+	* @params pageNumber the page number
+    * @returns entities
+	* 
+	* @example
+    * 
+	* var dataProxy = new MediusData();
+	* var prop = [];
+	* prop.push("Id");
+	* prop.push("Title");
+	*			
+	* var data = dataProxy.QueryDocumentFlat("Medius.Core.Entities.Help.HelpRequest", "", 5, 1,prop);
+    */
+			
+  self.QueryDataFlat = function(tag, query, pageSize, pageNumber, properties)
   {
-	var params = {hqlQuery: query, properties: columns};
-	var result = self.getDataSynch("CoreGadgetService", "GetFlatData", params);
+	var params = {tag: tag, query: query, properties: properties, pageSize: pageSize, pageNumber: pageNumber};
+	var result = self.getDataSynch("DataDefinitionManager", "GetPageOfDataForTagFlat", params);
 			
 	return result;
   };

@@ -75,7 +75,6 @@ var MediusDataGrid = function(){
     * Create automatic grid - Handles the common scenario for a data type
 	* The grid itself maintaince the data fetching, sorting, filtering etc.
     *
-    * @params elementName the element to bind the grid to
     * @params entityType a string representing the data object type
 	* @params query the query that is applied on the entityType
 	* @params columns a list of columns where each columns looks like this { ColumnName: record, ValueSource: record }
@@ -102,9 +101,9 @@ var MediusDataGrid = function(){
 	*							
 	*			grid.CreateGrid("#g-@Model.Id", tag, whereStatement, columns, option);
     */	
-	self.CreateGrid = function(elementName, entityType, query, columns, option){
+	self.CreateGrid = function(entityType, query, columns, option){
 	
-		var EntityGrid = require("medius/components/grid/entityGrid");
+		var EntityGrid = require("medius/components/grid/entity/grid");//"medius/components/grid/entityGrid");
 		var SyncDataSource = require("medius/components/grid/dataSource/sync");
 		var sync = require("medius/core/sync");
 		
@@ -113,7 +112,10 @@ var MediusDataGrid = function(){
 		}
 		
 		var source = new SyncDataSource();
-		source.Columns(columns);
+		
+		source.loadColumns = function() {
+			return $.Deferred().resolve(columns);
+		};
 		
 		//Custom logic to provide Query with sorting and filtering support
 		source.performAjaxLoad = function(entityDataQuery) {
@@ -159,10 +161,10 @@ var MediusDataGrid = function(){
 		option.entityGridOption.dataSource = source;
 		
 		option.entityGridOption = self.setDataNavigationLink(option.entityGridOption, option.documentLinkProperty, true);	
-
-		var entityGrid = new EntityGrid(entityType, option.entityGridOption);
 		
-		self.render(elementName, entityGrid);
+		var entityGrid = EntityGrid.create(entityType, option.entityGridOption);
+		
+		return entityGrid;
 	};
 	
 	self.setDataNavigationLink = function(gridOption, linkProperty, isDocument) {
@@ -174,11 +176,6 @@ var MediusDataGrid = function(){
 		};
 		
 		return gridOption;
-	};
-	
-	self.render = function(elementName, grid) {
-		grid.setTargetElement(elementName);
-		grid.render();
 	};
 };
 /**
